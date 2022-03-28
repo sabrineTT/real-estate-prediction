@@ -1,41 +1,43 @@
-import requests
-from bs4 import BeautifulSoup
+import requests     # importe la librairie qui fait des requetes
+from bs4 import BeautifulSoup  # importe la librairie beautiful soup
 
 
 # Scrapping wikipedia
 '''
 
-wikipedia_url = 'https://fr.wikipedia.org/wiki/Transformations_de_Paris_sous_le_Second_Empire'
-html_text = requests.get(wikipedia_url).text
-soup = BeautifulSoup(html_text, 'html.parser')
+wikipedia_url = 'https://fr.wikipedia.org/wiki/Transformations_de_Paris_sous_le_Second_Empire' #on met l'url dans la variable
+html_text = requests.get(wikipedia_url).text   # on recupere le code html de la page dans une variable
+soup = BeautifulSoup(html_text, 'html.parser')   # on lance l'analyse sur le code html
 
-titre_articles = soup.find_all("span", class_="mw-headline")
-for titre in titre_articles:
-    print(titre.get_text(strip=True))
+titre_articles = soup.find_all("span", class_="mw-headline")   # find all recherche tout les elément de type span avec la classe mw-headline
+for titre in titre_articles:       # on passe sur tout les élements trouvés qui sont dans la variable titres articles
+    print(titre.get_text(strip=True))    # on récupère uniqument le texte qu'il y a dans les balises trouvées et on print
 
 
 
 Scrapping logic immo soup
 '''
 
+# meme chose pour les 3 lignes suivantes
+
 Logic_url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1,2,6,7,12'
 html_text = requests.get(Logic_url).text
 soup = BeautifulSoup(html_text, 'html.parser')
 
-print(soup)
+print(soup) # ca print le code html dans la console
 
-Annonces = []
+Annonces = []  # on creer une liste annonces qui va lister toutes les annonces
 
-table = soup.find('div', attrs={"id": "lists-offer"})
+table = soup.find('div', attrs={"id": "lists-offer"})  # on recupere la div qui a l'id list-offer
 print(table)
 
-for row in table.findAll('div', attrs={'class': 'announceContent'}):
+for row in table.findAll('div', attrs={'class': 'announceContent'}):  #on cherche toute les balises qui ont announcecontent et on va faire pour chaque element de la liste :
 
-    annonce = {}
+    annonce = {}   # on crée un dictionnaire, ca servira pour chaque annonce a lister le prix la surface etc
 
-    x1 = row.findChildren("span", attrs={"class": "announceDtlPrice"})
+    x1 = row.findChildren("span", attrs={"class": "announceDtlPrice"}) # on cherche dans les "enfants" de l'élément les span de class announceDtlPrice
     for i in x1:
-        annonce['Prix'] = i.get_text(separator="  #")
+        annonce['Prix'] = i.get_text(separator="  #") # on recupere le texte de la balises span et on met dans le dictionnaire
     x2 = row.findChildren("div", attrs={"class": "announcePropertyLocation"})
     for i in x2:
         annonce['Location'] = i.text
@@ -48,23 +50,17 @@ for row in table.findAll('div', attrs={'class': 'announceContent'}):
     x5 = row.findChildren("span", attrs={"class": "announceDtlInfos announceDtlInfosNbRooms"})
     for i in x1:
         annonce['NbRoom'] = i.text
-    Annonces.append(annonce)
+    Annonces.append(annonce) # on ajoute le dictionnaire a la liste
+# il y a autant de dictionnaire que de liste.
 
-print(Annonces)
+print(Annonces) on print la liste
 
+'''
+Probleme 1 :
+beauifulsoup n'est pas dynamique donc ne va pas chercher les autres annonces si elles sont sur plusieurs pages.
 
-
-
-
-
-
-
-
-
-# annonce['prix']=row.span(attrs = {"class" : "announceDtlPrice"}).text
-
-# Annonces.append(annonce)
-
-# print(Annonces)
-
+Probleme 2 :
+si un pop up apparait type accepter les cookies, la page html capter est cette page pop up et non la page voulue.
+Beautifulsoup ne trouvera donc pas les element avec les .find
+'''
 
