@@ -8,43 +8,70 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
 import time
+import re
 
 options = Options()
 options.headless = True  # etre prive
 options.add_argument("--window-size=1920,1080")  # dimension fenetre
 options.add_argument("start-maximized")  # mise en plein ecran de la fenetre
 
-driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sudria - Ingé 2/Projet - Machine Learning Immobilier/Scraping/chromedriver") #adresse driver chrome
-page=1 #variable pour indentation nombre de page parcourues
+driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sudria - Ingé 2/Projet - Machine Learning Immobilier/Scraping/chromedriver")  # adresse driver chrome
+page = 1  # variable pour indentation nombre de page parcourues
 
-datas_list = [] #listes vides pour stocker datas scrapees
+datas_list = []  # listes vides pour stocker datas scrapees
 prices_list = []
+nombre_pieces_list = []
+superficie_list = []
+clean_prices_list = []
 
-while page<=3: #boucle pour 3 pages differentes
-    
-    url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1,2,6,7,12/page=%d'%(page) #adresse de la page scrappee
-    driver.get(url) #ouverture avec driver
+# =============================================================================
+# Scraping :
+# =============================================================================
 
-    time.sleep(15) #pause
+while page <= 200:  # boucle pour 5 pages differentes
 
-    datas = driver.find_elements_by_xpath('//a[@class="linkToFa"]') #recupere tous les elements avec une borne a et une classe "linktofa"
+    url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1/page=%d'%(page)  # adresse de la page scrappee
+    driver.get(url)  # ouverture avec driver
+
+    if page == 1:
+        time.sleep(12)  # pause
+    else:
+        time.sleep(3)
+
+    datas = driver.find_elements_by_xpath('//a[@class="linkToFa"]')  # recupere tous les elements avec une borne a et une classe "linktofa"
     prices = driver.find_elements_by_xpath('//span[@class="announceDtlPrice"]')
     page += 1
-  
+
     for d in range(len(datas)):
-        datas_list.append(datas[d].text) #ajoute chaque element recupere au dessus dans une liste defenie avant
-    
+        datas_list.append(datas[d].text)  # ajoute chaque element recupere au dessus dans une liste defenie avant
+
     for p in range(len(prices)):
         prices_list.append(prices[p].text)
-    
 
-driver.close() #fermeture de la fenetre de scraping
+driver.close()  # fermeture de la fenetre de scraping
 
-# print(datas_list)
-# print(prices_list)
+# =============================================================================
+# Nettoyage des données :
+# =============================================================================
 
-df = pd.DataFrame(list(zip(datas_list, prices_list)),columns =['Datas', 'Prices']) #creation d'une base de donnees
-print(df) #affichage de la base
-df.to_csv(r'C:\Users\kju78\Documents\ESME Sudria\Ingé 2\ESME Sudria - Ingé 2\Projet - Machine Learning Immobilier\Scraping\logicimmo.csv', index = False) #converti base pandas en fichier csv
+for data in datas_list:
+    digit = re.findall(r"\d", data)  # recupere uniquement les chiffres de data
+
+    nombre_pieces = digit[-1] + "p"  # le dernier chiffre correspond au nombre de pieces
+    nombre_pieces_list.append(nombre_pieces)
+    del digit[-1]  # retire le nombre de piece de data
+
+    superficie = ("".join(digit)) + "m2"  # concatene les chiffres restant dans data sans separateur
+    superficie_list.append(superficie)
+
+for price in prices_list:
+    clean_data = re.sub("\€", "", price) + "Euros"  # supprime le signe €
+    clean_prices_list.append(clean_data)
+
+df = pd.DataFrame(list(zip(superficie_list, nombre_pieces_list, clean_prices_list)),columns=['Superficie', 'Nombre Piece', 'Prix'])  # creation d'une base de donnees
+print(df)  # affichage de la base
+df.to_csv(r'C:\Users\kju78\Documents\ESME Sudria\Ingé 2\ESME Sudria - Ingé 2\Projet - Machine Learning Immobilier\Scraping\logicimmo.csv',index=False)  # converti base pandas en fichier csv
+
+
 
 
