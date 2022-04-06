@@ -8,7 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
 import time
-import re
 
 options = Options()
 options.headless = True  # etre prive
@@ -21,18 +20,24 @@ driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sud
 # Variables a definir :
 # =============================================================================
 
-page = 1  # variable pour indentation nombre de page parcourues
-debut = 1
-fin = 5
+debut = 1 # variable pour indentation nombre de page parcourues
+fin = 2
+page = debut
 
 # =============================================================================
+# Listes de stockage :
+# =============================================================================
 
-datas_list = []  # listes vides pour stocker datas scrapees
-prices_list = []
-nombre_pieces_list = []
-superficie_list = []
-clean_prices_list = []
-arrondiessements_list = []
+infos_list = []
+nb_bedrooms_list = []
+nb_rooms_list = []
+energy_letter_list = []
+photos_nb_list = []
+floor_nb_list = []
+client_type_list = []
+price_list = []
+space_list = []
+estate_postalcode_list = []
 
 # =============================================================================
 # Scraping :
@@ -43,47 +48,89 @@ while debut <= page <= fin:  # boucle pour 5 pages differentes
     url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1/page=%d'%(page)  # adresse de la page scrappee
     driver.get(url)  # ouverture avec driver
 
-    if page == debut:
-        time.sleep(12)  # pause
+    if page % 10 == 0 or page == debut:
+        time.sleep(15)  # pause
     else:
-        time.sleep(3)
-
-    datas = driver.find_elements_by_xpath('//a[@class="linkToFa"]')  # recupere tous les elements avec une borne a et une classe "linktofa"
-    prices = driver.find_elements_by_xpath('//span[@class="announceDtlPrice"]')
-    arrondiessements = driver.find_elements_by_xpath('//div[@class="announcePropertyLocation"]')
-
+        time.sleep(5)
+    
+    links = driver.find_elements_by_xpath("//a[@class='add-to-selection']")
+    
     page += 1
-
-    for d in range(len(datas)):
-        datas_list.append(datas[d].text)  # ajoute chaque element recupere au dessus dans une liste defenie avant
-
-    for p in range(len(prices)):
-        prices_list.append(prices[p].text)
-
-    for a in range(len(arrondiessements)):
-        arrondiessements_list.append(arrondiessements[a].text)
+        
+    for l in range(len(links)):
+        infos = links[l].get_attribute('onclick')
+        infos_list.append(infos)
+        
 
 driver.close()  # fermeture de la fenetre de scraping
 
 # =============================================================================
 # Nettoyage des données :
 # =============================================================================
+    
+for info in infos_list :
+    
+    nb_rooms = info.partition("nb_rooms")[2][2]
+    nb_bedrooms = info.partition("nb_bedrooms")[2][2]
+    energy_letter = info.partition("energy_letter")[2][3]
+    photos_nb = info.partition("photos_nb")[2][2]
+    floor_nb = info.partition("floor_nb")[2][2]
+    client_type = info.partition("client_type")[2][3]
+    
+    price = info.partition("price")[2][2]
+    space = info.partition("space")[2][2]
+    estate_postalcode = info.partition("estate_postalcode")[2][3] 
 
-for data in datas_list:
-    digit = re.findall(r"\d", data)  # recupere uniquement les chiffres de data
+    if info.partition("energy_letter")[2][4] != "'" :
+        energy_letter+=info.partition("energy_letter")[2][4]
 
-    nombre_pieces = digit[-1] + "p"  # le dernier chiffre correspond au nombre de pieces
-    nombre_pieces_list.append(nombre_pieces)
-    del digit[-1]  # retire le nombre de piece de data
+    if info.partition("photos_nb")[2][3] != "'" and info.partition("photos_nb")[2][3] != ",":
+        photos_nb+=info.partition("photos_nb")[2][3]
+     
+    
+    for i in range(4,len(info.partition("client_type")[2])):
+        if info.partition("client_type")[2][i] != "'" :
+            client_type += info.partition("client_type")[2][i]
+        else :
+            break  
+        
+    for i in range(3,len(info.partition("price")[2])):
+        if info.partition("price")[2][i] != "," :
+            price += info.partition("price")[2][i]
+        else :
+            break 
+    
+    for i in range(3,len(info.partition("space")[2])):
+        if info.partition("space")[2][i] != "," :
+            space += info.partition("space")[2][i]
+        else :
+            break 
+        
+    for i in range(4,len(info.partition("estate_postalcode")[2])):
+        if info.partition("estate_postalcode")[2][i] != "'" :
+            estate_postalcode += info.partition("estate_postalcode")[2][i]
+        else :
+            break  
+    
+    if floor_nb == "'" :
+        floor_nb = "NaN"
+    
+    
+    nb_bedrooms_list.append(nb_bedrooms)
+    nb_rooms_list.append(nb_rooms)
+    energy_letter_list.append(energy_letter)
+    photos_nb_list.append(photos_nb)
+    floor_nb_list.append(floor_nb)
+    client_type_list.append(client_type)
+    price_list.append(price)
+    space_list.append(space)
+    estate_postalcode_list.append(estate_postalcode)
 
-    superficie = ("".join(digit)) + "m2"  # concatene les chiffres restant dans data sans separateur
-    superficie_list.append(superficie)
+# =============================================================================
+# Création du dataframe :
+# =============================================================================
 
-for price in prices_list:
-    clean_data = re.sub("\€", "", price) + "Euros"  # supprime le signe €
-    clean_prices_list.append(clean_data)
-
-df = pd.DataFrame(list(zip(superficie_list, nombre_pieces_list, clean_prices_list, arrondiessements_list)),columns=['Superficie', 'Nombre Piece', 'Prix', 'Code Postal'])  # creation d'une base de donnees
+df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list, client_type_list)),columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type Vendeur'])  # creation d'une base de donnees
 print(df)  # affichage de la base
 df.to_csv(r'C:\Users\kju78\Documents\ESME Sudria\Ingé 2\ESME Sudria - Ingé 2\Projet - Machine Learning Immobilier\Scraping\logicimmo.csv',index=False)  # converti base pandas en fichier csv
 
