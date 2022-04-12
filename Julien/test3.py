@@ -21,7 +21,7 @@ driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sud
 # =============================================================================
 
 debut = 1 # variable pour indentation nombre de page parcourues
-fin = 2
+fin = 3
 page = debut
 
 # =============================================================================
@@ -38,6 +38,7 @@ client_type_list = []
 price_list = []
 space_list = []
 estate_postalcode_list = []
+estate_type_list = [] 
 
 # =============================================================================
 # Scraping :
@@ -48,10 +49,12 @@ while debut <= page <= fin:  # boucle pour 5 pages differentes
     url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1/page=%d'%(page)  # adresse de la page scrappee
     driver.get(url)  # ouverture avec driver
 
-    if page % 10 == 0 or page == debut:
-        time.sleep(15)  # pause
+    pb = [9,19,29,39,49]
+
+    if page == debut or page in pb or page % 10 == 0 :
+        time.sleep(12)  # pause
     else:
-        time.sleep(5)
+        time.sleep(3)
     
     links = driver.find_elements_by_xpath("//a[@class='add-to-selection']")
     
@@ -76,10 +79,11 @@ for info in infos_list :
     photos_nb = info.partition("photos_nb")[2][2]
     floor_nb = info.partition("floor_nb")[2][2]
     client_type = info.partition("client_type")[2][3]
-    
     price = info.partition("price")[2][2]
     space = info.partition("space")[2][2]
-    estate_postalcode = info.partition("estate_postalcode")[2][3] 
+    estate_postalcode = info.partition("estate_postalcode")[2][3]
+    estate_type = info.partition("estate_type")[2][2]
+
 
     if info.partition("energy_letter")[2][4] != "'" :
         energy_letter+=info.partition("energy_letter")[2][4]
@@ -113,8 +117,39 @@ for info in infos_list :
             break  
     
     if floor_nb == "'" :
-        floor_nb = "NaN"
+        floor_nb = -1 #-1 si NaN
+        
+    if client_type == 'pro' :
+        client_type = 1 #toujour vendeur pro
+    else :
+        client_type = 0
+        
+    classe_energetique = ['A','B','C','D','E','F','G']
+    if energy_letter not in classe_energetique :
+        energy_letter = 0 #0 si Nan
+    elif energy_letter == 'A' :
+        energy_letter = 1
+    elif energy_letter == 'B' :
+        energy_letter = 2
+    elif energy_letter == 'C' :
+        energy_letter = 3
+    elif energy_letter == 'D' :
+        energy_letter = 4
+    elif energy_letter == 'E' :
+        energy_letter = 5
+    elif energy_letter == 'F' :
+        energy_letter = 6
+    elif energy_letter == 'G' :
+        energy_letter = 7
     
+    if estate_type == "'" :
+        estate_type = -1
+    elif estate_type == 9 :
+        estate_type = 3
+    
+    # appartement / studios : 1
+    # maison / villa : 2
+    # loft : 3
     
     nb_bedrooms_list.append(nb_bedrooms)
     nb_rooms_list.append(nb_rooms)
@@ -125,12 +160,13 @@ for info in infos_list :
     price_list.append(price)
     space_list.append(space)
     estate_postalcode_list.append(estate_postalcode)
+    estate_type_list.append(estate_type)
 
 # =============================================================================
 # Création du dataframe :
 # =============================================================================
 
-df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list, client_type_list)),columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type Vendeur'])  # creation d'une base de donnees
+df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list,estate_type_list, client_type_list)),columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type de Bien', 'Type Vendeur'])  # creation d'une base de donnees
 print(df)  # affichage de la base
 df.to_csv(r'C:\Users\kju78\Documents\ESME Sudria\Ingé 2\ESME Sudria - Ingé 2\Projet - Machine Learning Immobilier\Scraping\logicimmo.csv',index=False)  # converti base pandas en fichier csv
 
