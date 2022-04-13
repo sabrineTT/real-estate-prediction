@@ -21,7 +21,7 @@ driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sud
 # =============================================================================
 
 debut = 1 # variable pour indentation nombre de page parcourues
-fin = 1
+fin = 10
 page = debut
 
 # =============================================================================
@@ -86,9 +86,18 @@ while debut <= page <= fin:  # boucle pour 5 pages differentes
 
 
 for i in range(len(url_list)) :
+    
     driver.get(url_list[i])
+    
+    delait = [8,15,23,31,39,47,55,62,70,78,86]
+    
+    if i in delait :
+        time.sleep(8)
+    else :
+        time.sleep(2)
+        
     datas = driver.find_elements_by_xpath("//span[@class='dtlTechiqueItmLabel']")
-    time.sleep(6)
+    
     for data in datas :
         datas_list_temp.append(data.text)
     datas_list.append(datas_list_temp)
