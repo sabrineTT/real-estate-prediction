@@ -21,7 +21,7 @@ driver = webdriver.Chrome("C:/Users/kju78/Documents/ESME Sudria/Ingé 2/ESME Sud
 # =============================================================================
 
 debut = 11 #variable pour indentation nombre de page parcourues - a changer
-fin = 20 #a changer
+fin = 20
 
 page = debut #a laisser 
 
