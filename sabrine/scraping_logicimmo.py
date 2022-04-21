@@ -16,8 +16,8 @@ driver = webdriver.Chrome(
 # Variables a definir :
 # =============================================================================
 
-debut = 1  # variable pour indentation nombre de page parcourues - a changer
-fin = 2
+debut = 417  # variable pour indentation nombre de page parcourues - a changer
+fin = 428
 
 page = debut  # a laisser
 
@@ -71,6 +71,7 @@ while debut <= page <= fin:  # boucle pour n pages differentes
         scrap = driver.find_elements_by_xpath("//a[@class='linkToFa']")  # scrap des urls
 
         page += 1
+        compteur = 1
 
         for l in range(len(links)):  # parcours des infos scrapee
             infos = links[l].get_attribute('onclick')  # recolte donnees de l'attribut 'onclick'
@@ -102,8 +103,12 @@ for i in range(len(url_list)):  # parcours de la liste des liens recoltes
         datas_list.append(datas_list_temp)  # ajout liste temporaire a liste globale (=> chaque page à sa liste d'infos)
         datas_list_temp = []  # vide la liste temporaire
 
+        print("iteration actuelle : ", compteur, "/", len(url_list) + 1)
+        compteur +=1
+
     except WebDriverException:
         pass
+
 
 driver.close()  # fermeture de la fenetre de scraping
 
