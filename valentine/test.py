@@ -21,8 +21,8 @@ driver = webdriver.Chrome("/Users/valentinesallet/Desktop/pourEssayer/chromedriv
 # Variables a definir :
 # =============================================================================
 
-debut = 21  # variable pour indentation nombre de page parcourues - a changer
-fin = 40
+debut = 142  # variable pour indentation nombre de page parcourues - a changer
+fin = 182
 
 page = debut  # a laisser
 
@@ -69,9 +69,9 @@ while debut <= page <= fin:  # boucle pour n pages differentes
         pb = [9, 19, 29, 39, 49]  # pages avec test anti-robot
 
         if page == debut or page in pb or page % 10 == 0:
-            time.sleep(12)  # pause
+            time.sleep(7)  # pause
         else:
-            time.sleep(12)
+            time.sleep(7)
 
 
 
@@ -100,9 +100,9 @@ for i in range(len(url_list)):  # parcours de la liste des liens recoltes
         delais = [8, 15, 23, 31, 39, 47, 55, 62, 70, 78, 86]  # page avec controle anti-robot => toute les 7-8 pages => tous i+=8
 
         if i in delais:
-            time.sleep(12)
+            time.sleep(7)
         else:
-            time.sleep(12)
+            time.sleep(7)
 
         datas = driver.find_elements_by_xpath("//span[@class='dtlTechiqueItmLabel']")  # scrape infos sur nouvelle page
 
@@ -257,4 +257,4 @@ for info in infos_list:  # parcours liste infos pages recherche
 
 df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list, estate_type_list, client_type_list, terrasse_list, parking_list, cave_list,ascenseur_list, gardien_list, renove_list, box_list)), columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type de Bien', 'Type Vendeur', 'Terrasse', 'Parking', 'Cave', 'Ascenseur', 'Gardien', 'Renove', 'Box'])  # creation d'une base de donnees
 print(df)  # affichage de la base
-df.to_csv(r'/Users/valentinesallet/Desktop/Ingé 2/ESME/Projet/base_de_donnee/logicimmo.csv', index=False)  # converti base pandas en fichier csv
+df.to_csv(r'/Users/valentinesallet/Desktop/Ingé 2/ESME/Projet/base_de_donnee/logicimmo_142_182.csv', index=False)  # converti base pandas en fichier csv

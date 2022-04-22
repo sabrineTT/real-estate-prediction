@@ -17,7 +17,7 @@ print('nombre de valleur nulle dans chaque colonne:\n',dataset.isna().sum())
 print('nombre de valeur nulle :', dataset.isna().sum().sum())
 
 
-# encoding the categorical data
+# encoder les variables (sert si on a des varaibles qui ne sont pas des entiers ou des nombres)
 dataset = pd.get_dummies(dataset)
 
 
@@ -29,12 +29,18 @@ print('Mes variables test :\n', X[:5, :])
 y = dataset.iloc[:, [False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False]].values
 print('Ma variable test :\n', y[:5, :])
 
-# spliting the dataset
+# je divise ma dataset :
+# X_train : les variables (sauf prix) qui vont servir a entrainer le modele (20% du tableau)
+# X_test : les 80% sur lequel on va tester le modele
+# Y_train : 20% du tableau (le prix uniquement) qui va etre comparer a ce que le modele dit lors du test
+# Y_test : 80% dont on ne se sert que si on veut calculer le taux d'accuracy.
+
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test  = train_test_split(X, y, test_size=0.2, random_state = 0)
 
 
-# using feature scaling
+# using feature scaling sert a normaliser les variables indépendantes
 from sklearn.preprocessing import StandardScaler
 X_sc = StandardScaler()
 X_train = X_sc.fit_transform(X_train)
@@ -43,13 +49,19 @@ X_train = X_sc.fit_transform(X_train)
 # training the dataset
 from sklearn.tree import DecisionTreeRegressor
 regrassor = DecisionTreeRegressor(random_state = 0)
-regrassor.fit(X_train, y_train)
+regrassor.fit(X_train, y_train) # je creer mon modele et je l'entraine
 
 
-# predictzing the result
+# je predis les prix avec le reste du tableau (80%)
 pred = regrassor.predict(X_sc.transform(X_test))
 
 
 # Accuracy of the algorithm
 from sklearn.metrics import accuracy_score
 print(accuracy_score(pred, y_test))
+
+# l'accuracy compare si le resultat du test et la valeur reel correspondent
+# c'est un pourcentage
+# ici il vaut 2% (pas terrible) mais peut etre que c'est pcq
+# si le prix prédit et le vrai prix sont pas les memes ca compte faux
+
