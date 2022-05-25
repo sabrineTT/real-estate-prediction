@@ -79,63 +79,13 @@ https://templatemo.com/tm-564-plot-listing
       <div class="row">
         <div class="col-lg-12">
           <div class="top-text header-text">
+            <img src="../static/css/templatemo_564_plot_listing/assets/images/black-logo.png" alt="Black logo" style="width:300px; height:300px; align:middle">
             <h6>Over 36,500+ users already</h6>
             <h2>Find out how much your property is worth!</h2>
           </div>
         </div>
         <div class="col-lg-12">
-          <form id="search-form" name="gs" method="submit" role="search" action="#">
-            <div class="row">
-              <div class="col-lg-3 align-self-center">
-                  <fieldset>
-                      <select name="area" class="form-select" aria-label="Area" id="chooseAreaCategory" onchange="this.form.click()">
-                          <option selected>Paris (75)</option>
-                          <option value="Paris 1">Paris 1</option>
-                          <option value="Paris 2">Paris 2</option>
-                          <option value="Paris 3">Paris 3</option>
-                          <option value="Paris 4">Paris 4</option>
-                          <option value="Paris 5">Paris 5</option>
-                          <option value="Paris 6">Paris 6</option>
-                          <option value="Paris 7">Paris 7</option>
-                          <option value="Paris 8">Paris 8</option>
-                          <option value="Paris 9">Paris 9</option>
-                          <option value="Paris 10">Paris 10</option>
-                          <option value="Paris 11">Paris 11</option>
-                          <option value="Paris 12">Paris 12</option>
-                          <option value="Paris 13">Paris 13</option>
-                          <option value="Paris 14">Paris 14</option>
-                          <option value="Paris 15">Paris 15</option>
-                          <option value="Paris 16">Paris 16</option>
-                          <option value="Paris 17">Paris 17</option>
-                          <option value="Paris 18">Paris 18</option>
-                          <option value="Paris 19">Paris 19</option>
-                          <option value="Paris 20">Paris 20</option>
-                      </select>
-                  </fieldset>
-              </div>
-              <div class="col-lg-3 align-self-center">
-                  <fieldset>
-                      <select name="rooms" class="form-select" aria-label="Default select example" id="chooseRoomsCategory" onchange="this.form.click()">
-                          <option selected>Rooms</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4+">4+</option>
-                      </select>
-                  </fieldset>
-              </div>
-              <div class="col-lg-3 align-self-center">
-                  <fieldset>
-                      <input type="text" name="surface" class="searchText" placeholder="Enter your surface area" autocomplete="on" required>
-                  </fieldset>
-              </div>
-              <div class="col-lg-3">                        
-                  <fieldset>
-                      <button class="main-button"><i class="fa fa-search"></i> Search Now</button>
-                  </fieldset>
-              </div>
-            </div>
-          </form>
+            {% block form %} {% endblock %}
         </div>
         <!--div class="col-lg-10 offset-lg-1">
           <ul class="categories">
@@ -635,7 +585,7 @@ https://templatemo.com/tm-564-plot-listing
         </div>
         <div class="col-lg-12">
           <div class="sub-footer">
-            <p>Copyright © 2021 Predict., Ltd. All Rights Reserved.
+            <p>Copyright © 2022 Predict., Ltd. All Rights Reserved.
             <br>
 			Design: <a rel="nofollow" href="https://templatemo.com" title="CSS Templates">TemplateMo</a></p>
           </div>

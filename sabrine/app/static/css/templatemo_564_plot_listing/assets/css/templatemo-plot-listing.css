@@ -53,6 +53,10 @@ figure, header, nav, section, article, aside, footer, figcaption {
 
 /* ---- .grid-item ---- */
 
+input[type=checkbox] {
+    transform: scale(0.8);
+}
+
 .grid-sizer,
 .grid-item {
   width: 50%;
