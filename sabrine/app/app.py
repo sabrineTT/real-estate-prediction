@@ -7,31 +7,6 @@ from sklearn.linear_model import LinearRegression
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'projet2022'
 
-@app.route('/', methods=('GET', 'POST'))
-def index():
-    if request.method == 'POST':
-        area = [int(request.form.get('area'))]
-        surface = [int(request.form.get('surface'))]
-        rooms = [int(request.form.get('rooms'))]
-        bedrooms = [int(request.form.get('bedrooms'))]
-        energy = [int(request.form.get('energy'))]
-        parking = request.form.get('parking')
-        box = request.form.get('box')
-
-        if box == None:
-            box = [-1]
-        else:
-            box = [1]
-
-        if parking == None:
-            parking = [-1]
-        else:
-            parking = [1]
-
-        predicted_price(area, surface, rooms, bedrooms, energy, parking, box)
-    return render_template('index.html')
-
-
 def predicted_price(area, surface, rooms, bedrooms, energy, parking, box):
     df = pd.read_csv('../logicimmo.csv')
     # df = df[['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres',
@@ -60,3 +35,31 @@ def predicted_price(area, surface, rooms, bedrooms, energy, parking, box):
     y_pred = model_lin_reg.predict(X_test)
     print(y_pred)
     return render_template('index.html')
+
+@app.route('/', methods=('GET', 'POST'))
+def index():
+    if request.method == 'POST':
+        area = [int(request.form.get('area'))]
+        surface = [int(request.form.get('surface'))]
+        rooms = [int(request.form.get('rooms'))]
+        bedrooms = [int(request.form.get('bedrooms'))]
+        energy = [int(request.form.get('energy'))]
+        parking = request.form.get('parking')
+        box = request.form.get('box')
+
+        if box == None:
+            box = [-1]
+        else:
+            box = [1]
+
+        if parking == None:
+            parking = [-1]
+        else:
+            parking = [1]
+
+        predicted_price(area, surface, rooms, bedrooms, energy, parking, box)
+    return render_template('index.html')
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
