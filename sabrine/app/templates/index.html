@@ -3,14 +3,14 @@
 {% block title %} Welcome to Predict {% endblock %}
 {% block content %}
     <div class="col-lg-12">
-      <div class="top-text header-text">
-        <img src="../static/css/templatemo_564_plot_listing/assets/images/black-logo.png" alt="Black logo" style="width:300px; height:300px; align:middle">
-        <h6>Over 36,500+ users already</h6>
-        <h2>Find out how much your property is worth!</h2>
-      </div>
+        <img src="../static/css/templatemo_564_plot_listing/assets/images/black-logo.png" alt="Black logo" style="width:300px; height:300px; align:center">
+        <div class="top-text header-text">
+            <h6>Over 36,500+ users already</h6>
+            <h2>Find out how much your property is worth!</h2>
+        </div>
     </div>
     <div class="col-lg-12">
-        <form id="search-form" name="gs" method="POST" role="search" action="{{ url_for('index')}}">
+        <form id="search-form" name="gs" method="POST" role="search" action="{{ url_for('predicted')}}">
         <div class="row">
             <div class="col-lg-3 align-self-center">
                 <fieldset>
