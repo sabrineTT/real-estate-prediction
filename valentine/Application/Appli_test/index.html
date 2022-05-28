@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Predict'House</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900'
+          rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<header>
+    <div class="navbar-container">
+        <nav class="navbar">
+            <img class="navbar-logo" src="images/Predict_house-removebg-preview.png" alt="Predict'House logo">
+            <div class="navbar-link-container">
+                <a class="navbar-link" href="index.html">Accueil</a>
+                <a class="navbar-link" href="about.html">A Propos</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="top">
+        <h1 id="title" class="hidden">Estimez votre bien à sa juste valeur !</h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>Commencez votre estimation</h2>
+        </div>
+
+        <form id="search-form" name="gs" method="POST" role="search" action="{{ url_for('predicted')}}">
+            <div class="row">
+                <div class="col-lg-3 align-self-center">
+                    <fieldset class="fieldset-form">
+                        <label for="">Choisissez votre arrondissement </label>
+                        <select name="area" class="form-select" aria-label="Area" id="chooseAreaCategory" required
+                                onchange="this.form.click()">
+                            <option selected>Paris (75)</option>
+                            <option value="75001">Paris 1</option>
+                            <option value="75002">Paris 2</option>
+                            <option value="75003">Paris 3</option>
+                            <option value="75004">Paris 4</option>
+                            <option value="75005">Paris 5</option>
+                            <option value="75006">Paris 6</option>
+                            <option value="75007">Paris 7</option>
+                            <option value="75008">Paris 8</option>
+                            <option value="75009">Paris 9</option>
+                            <option value="75010">Paris 10</option>
+                            <option value="75011">Paris 11</option>
+                            <option value="75012">Paris 12</option>
+                            <option value="75013">Paris 13</option>
+                            <option value="75014">Paris 14</option>
+                            <option value="75015">Paris 15</option>
+                            <option value="75016">Paris 16</option>
+                            <option value="75017">Paris 17</option>
+                            <option value="75018">Paris 18</option>
+                            <option value="75019">Paris 19</option>
+                            <option value="75020">Paris 20</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-3 align-self-center">
+                    <fieldset class="fieldset-form">
+                        <label for="">Renseignez la surface de votre appartement (m²)</label>
+                        <input type="number" name="surface" min="0" class="searchText"
+                               placeholder="Entrez la surface" autocomplete="on" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3 align-self-center">
+                    <fieldset class="fieldset-form">
+                        <label for="">Selectionnez le nombre de pièces</label>
+                        <select name="rooms" class="form-select" aria-label="Default select example"
+                                id="chooseRoomsCategory" required onchange="this.form.click()">
+                            <option selected>Nb de pièces</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4+">4+</option>
+                            <!-- mettre si selectionne 4+, un input dans lequel il rentre combien exactement-->
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3 align-self-center">
+                    <fieldset class="fieldset-form">
+                        <label for="">Selectionnez le nombre de chambres</label>
+                        <select name="bedrooms" class="form-select" aria-label="Default select example"
+                                id="chooseBedroomsCategory" required onchange="this.form.click()">
+                            <option selected>Nb de chambres</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4+">4+</option>
+                            <!-- mettre si selectionne 4+, un input dans lequel il rentre combien exactement-->
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3 align-self-center">
+                    <fieldset class="fieldset-form">
+                        <label for="">Selectionnez la classe énergétique</label>
+                        <select name="energy" class="form-select" aria-label="Default select example"
+                                id="chooseEnergyCategory" required onchange="this.form.click()">
+                            <option selected>Energie</option>
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                            <option value="4">D</option>
+                            <option value="5">E</option>
+                            <option value="6">F</option>
+                            <option value="7">G</option>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3">
+                    <fieldset class="fieldset-parking-box">
+                        <label style="width: 10%" for="parking">Parking</label>
+                        <input style="width: 10%" name="parking" type="checkbox" id="parking" value=1>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3">
+                    <fieldset class="fieldset-parking-box">
+                        <label style="width: 10%" for="box">Box</label>
+                        <input style="width: 10%" name="box" type="checkbox" id="box" value=1>
+                    </fieldset>
+                </div>
+                <div class="col-lg-3">
+                    <button type="submit" class="main-button"><i class="fa fa-search"></i> Predict Now</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('#logo').addClass('animated fadeInDown');
+        $("input:text:visible:first").focus();
+    });
+    $('#username').focus(function () {
+        $('label[for="username"]').addClass('selected');
+    });
+    $('#username').blur(function () {
+        $('label[for="username"]').removeClass('selected');
+    });
+    $('#password').focus(function () {
+        $('label[for="password"]').addClass('selected');
+    });
+    $('#password').blur(function () {
+        $('label[for="password"]').removeClass('selected');
+    });
+</script>
+
+</html>
