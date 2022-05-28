@@ -1,0 +1,251 @@
+/*--------------------------------------------------------------
+Navbar Css
+--------------------------------------------------------------*/
+.navbar-container {
+    z-index: 9;
+    background-color: #0466c8;
+    height: 10px;
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar {
+    margin: 0 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-link-container {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.navbar-link {
+    margin: 0;
+    padding: 10px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-link:hover {
+    color: #e5e5e5;
+}
+
+.navbar-logo {
+    width: 7%;
+    height: 900%;
+}
+
+.background-image-paris::before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background: url("images/paris.jpg") no-repeat;
+    background-size: cover;
+    opacity: 0.2;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    color: #666;
+}
+
+/* Typography */
+h1#title {
+    font-family: 'Bebas Neue', cursive;
+    font-weight: 300;
+    font-size: 3.5em;
+    color: #0466c8;
+    text-shadow: 0 0 10px white;
+    margin: 0 auto;
+    padding-top: 135px;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    top: 0px;
+}
+
+h1#title span span {
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: #667;
+}
+
+a:hover {
+    color: #aeaeae;
+}
+
+p.small {
+    font-size: 0.8em;
+    margin: 20px 0 0;
+}
+
+
+/* Layout */
+.container {
+    margin: 0;
+}
+
+.top {
+    width: 100%;
+}
+
+.form-lg-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.fieldset-form {
+    border: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.fieldset-parking-box {
+    width: 100%;
+    height: 20px;
+    display: inline flex;
+    border: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.formulaire {
+    background-color: white;
+    max-width: 75%;
+    margin: 5% auto;
+    position: relative;
+    top: 0px;
+    padding-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.formulaire label {
+    font-family: 'Blinker', sans-serif;
+    font-weight: 700;
+    font-size: .8em;
+    color: #001233;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 2em;
+}
+
+.formulaire input {
+    margin-bottom: 20px;
+    padding: 8px;
+    border-radius: 2px;
+    font-size: .9em;
+}
+
+.formulaire button {
+    width: 35%;
+    margin-top: 0px;
+    border: 0;
+    border-radius: 15px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    background-color: #0466c8;
+    cursor: pointer;
+    outline: none;
+}
+
+.formulaire button:hover {
+    opacity: 0.7;
+    transition: 0.5s;
+}
+
+.selected {
+    color: #665851 !important;
+    transition: 0.5s;
+}
+
+/* Animation Delay */
+#logo {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: 2s;
+}
+
+.formulaire {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: 1s;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+}
+
+form#search-form select {
+    width: 100%;
+    height: 36px;
+    background-color: #ebebeb;
+    border: none;
+    color: #5c677d;
+    font-size: 15px;
+    outline: none;
+    border-radius: 8px;
+}
+
+
+form#search-form input {
+    width: 98%;
+    height: 20px;
+    background-color: #ebebeb;
+    border: none;
+    color: #5c677d;
+    font-size: 15px;
+    outline: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.fieldset-apropos {
+    border: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.image-apropos {
+    width: 33%;
+}
+
+.label-apropos {
+    font-family: 'Rock Salt', cursive;
+    width: 33%;
+    margin: 15px 0px;
+}
+
+.formulaire .descri {
+    width: 85%;
+    font-weight: 300;
+}

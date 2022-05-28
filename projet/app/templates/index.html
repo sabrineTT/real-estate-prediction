@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+<label for="">Selectionnez la classe énergétique</label>
+
+{% block title %} Predict'House {% endblock %}
+{% block content %}
+    <div class="top">
+        <h1 id="title" class="hidden">Estimez votre bien à sa juste valeur !</h1>
+    </div>
+    <div class="formulaire animated fadeInUp">
+        <form id="search-form" name="gs" method="POST" role="search" action="{{ url_for('predicted')}}">
+            <div class="form-lg-1">
+                <fieldset class="fieldset-form">
+                    <label for="area"> Choisissez votre arrondissement </label>
+                    <select name="area" aria-label="Area" id="chooseAreaCategory" onchange="this.form.click()">
+                    <option selected>Paris (75)</option>
+                    <option value="75001">Paris 1</option>
+                    <option value="75002">Paris 2</option>
+                    <option value="75003">Paris 3</option>
+                    <option value="75004">Paris 4</option>
+                    <option value="75005">Paris 5</option>
+                    <option value="75006">Paris 6</option>
+                    <option value="75007">Paris 7</option>
+                    <option value="75008">Paris 8</option>
+                    <option value="75009">Paris 9</option>
+                    <option value="75010">Paris 10</option>
+                    <option value="75011">Paris 11</option>
+                    <option value="75012">Paris 12</option>
+                    <option value="75013">Paris 13</option>
+                    <option value="75014">Paris 14</option>
+                    <option value="75015">Paris 15</option>
+                    <option value="75016">Paris 16</option>
+                    <option value="75017">Paris 17</option>
+                    <option value="75018">Paris 18</option>
+                    <option value="75019">Paris 19</option>
+                    <option value="75020">Paris 20</option>
+                </select>
+                </fieldset>
+                <fieldset class="fieldset-form">
+                    <label for="surface"> Renseignez la surface de votre appartement (m²) </label>
+                    <input type="number" name="surface" placeholder="Surface" autocomplete="on" required>
+                </fieldset>
+            </div>
+            <div class="form-lg-1">
+                <fieldset class="fieldset-form">
+                    <label for=""> Selectionnez le nombre de pièces et de chambres que contient votre bien </label>
+                    <select name="rooms" aria-label="Default select example" id="chooseRoomsCategory" required onchange="this.form.click()">
+                        <option selected>Pièces</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4+">4+</option>
+                        <!-- mettre si selectionne 4+, un input dans lequel il rentre combien exactement-->
+                    </select>
+                    <select style="margin-top: 20px" name="bedrooms" aria-label="Default select example" id="chooseBedroomsCategory" required onchange="this.form.click()">
+                        <option selected>Chambres</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4+">4+</option>
+                        <!-- mettre si selectionne 4+, un input dans lequel il rentre combien exactement-->
+                    </select>
+                </fieldset>
+            </div>
+            <div class="form-lg-1">
+                <fieldset class="fieldset-form">
+                    <label for="energy"> Selectionnez la classe énergiétique </label>
+                    <select name="energy" aria-label="Default select example" id="chooseEnergyCategory" required onchange="this.form.click()">
+                        <option selected>Classe énergétique</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                        <option value="3">C</option>
+                        <option value="4">D</option>
+                        <option value="5">E</option>
+                        <option value="6">F</option>
+                        <option value="7">G</option>
+                    </select>
+                </fieldset>
+                <fieldset class="fieldset-form">
+                    <label for="floor"> Selectionnez l'etage auquel se trouve votre bien </label>
+                    <input type="number" name="floor" placeholder="Étage" autocomplete="on" required>
+                </fieldset>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly">
+                <fieldset class="fieldset-parking-box">
+                    <label style="width: 10%" for="parking">Parking</label>
+                    <input style="width: 10%" name="parking" type="checkbox" id="parking" value=1>
+                </fieldset>
+                <fieldset class="fieldset-parking-box">
+                    <label style="width: 10%" for="box">Box</label>
+                    <input style="width: 10%" name="box" type="checkbox" id="box" value=1>
+                </fieldset>
+                <fieldset class="fieldset-parking-box">
+                    <label style="width: 10%" for="elevator">Ascenseur</label>
+                    <input style="width: 10%" name="elevator" type="checkbox" id="elevator" value=1>
+                </fieldset>
+                <fieldset class="fieldset-parking-box">
+                    <label style="width: 10%" for="balcony">Balcon/Terrasse</label>
+                    <input style="width: 10%" name="balcony" type="checkbox" id="balcony" value=1>
+                </fieldset>
+            </div>
+            <div class="form-lg-1">
+                <button type="submit"> Estimer </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

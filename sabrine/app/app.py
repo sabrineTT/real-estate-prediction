@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'projet2022'
 
 def predict_price(area, surface, rooms, bedrooms, energy, parking, box):
-    df = pd.read_csv('../logicimmo.csv')
+    df = pd.read_csv('sabrine/logicimmo.csv')
     # df = df[['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres',
     #         'Code Postal', 'Classe Energetique', 'Terrasse',
     #         'Parking', 'Cave', 'Ascenseur', 'Box', 'Prix (Euros)']]

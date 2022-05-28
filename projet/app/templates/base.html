@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Projet Ingé 2D - Prédiction des prix de l'immobilier à Paris">
+    <meta name="author" content="KRETZ-SALLET-THIBERT">
+    <title>{% block title %} {% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Blinker:wght@300&family=Rock+Salt&display=swap'
+          rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="../static/css/animate.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="navbar-container">
+            <nav class="navbar">
+                <img class="navbar-logo" src="../static/css/images/logo-blanc.png" alt="Predict'House logo">
+                <div class="navbar-link-container">
+                    <a class="navbar-link" href="{{ url_for('index')}}" style="border-right: 2px solid">Accueil</a>
+                    <a class="navbar-link" href="{{ url_for('about')}}">A Propos</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <div class="background-image-paris"/>
+        {% block content %} {% endblock %}
+    </div>
+</body>
+</html>
