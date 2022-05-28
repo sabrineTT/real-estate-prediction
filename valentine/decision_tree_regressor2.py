@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 # Reading the dataset using pandas librarie
-dataset = pd.read_csv('logicimmo_21_41.csv')
+dataset = pd.read_csv('../Julien/logicimmo - Copie.csv')
 
 
 # shape of the dataset
@@ -17,7 +17,7 @@ print('nombre de valleur nulle dans chaque colonne:\n',dataset.isna().sum())
 print('nombre de valeur nulle :', dataset.isna().sum().sum())
 
 
-# encoder les variables (sert si on a des varaibles qui ne sont pas des entiers ou des nombres)
+# encoder les variables (sert si on a des variables qui ne sont pas des entiers ou des nombres)
 dataset = pd.get_dummies(dataset)
 
 

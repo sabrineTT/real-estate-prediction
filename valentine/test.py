@@ -21,8 +21,8 @@ driver = webdriver.Chrome("/Users/valentinesallet/Desktop/pourEssayer/chromedriv
 # Variables a definir :
 # =============================================================================
 
-debut = 142  # variable pour indentation nombre de page parcourues - a changer
-fin = 182
+debut = 238  # variable pour indentation nombre de page parcourues - a changer
+fin = 248
 
 page = debut  # a laisser
 
@@ -91,8 +91,11 @@ while debut <= page <= fin:  # boucle pour n pages differentes
     except WebDriverException:
 
         pass
-
+kkk=0
 for i in range(len(url_list)):  # parcours de la liste des liens recoltes
+    kkk+=1
+    print("Annonce ",kkk, " sur ",len(url_list))
+
     try :
 
         driver.get(url_list[i])  # driver avec nouvel url
@@ -257,4 +260,4 @@ for info in infos_list:  # parcours liste infos pages recherche
 
 df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list, estate_type_list, client_type_list, terrasse_list, parking_list, cave_list,ascenseur_list, gardien_list, renove_list, box_list)), columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type de Bien', 'Type Vendeur', 'Terrasse', 'Parking', 'Cave', 'Ascenseur', 'Gardien', 'Renove', 'Box'])  # creation d'une base de donnees
 print(df)  # affichage de la base
-df.to_csv(r'/Users/valentinesallet/Desktop/Ingé 2/ESME/Projet/base_de_donnee/logicimmo_142_182.csv', index=False)  # converti base pandas en fichier csv
+df.to_csv(r'/Users/valentinesallet/Desktop/Ingé 2/ESME/Projet/base_de_donnee/logicimmo_238_248.csv', index=False)  # converti base pandas en fichier csv

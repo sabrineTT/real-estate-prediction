@@ -3,7 +3,7 @@ warnings.filterwarnings('ignore')
 
 #on lit la bdd
 import pandas as pd
-paris_housing = pd.read_csv("../Julien/logicimmo.csv")
+paris_housing = pd.read_csv("../Julien/logicimmo - Copie.csv")
 print(paris_housing, "\n")
 
 corr_paris_housing = paris_housing.corr()
