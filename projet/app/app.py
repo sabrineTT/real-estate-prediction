@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'projet2022'
 
 def predict_price(area, surface, rooms, bedrooms, energy, parking, box, elevator, floor, balcony):
-    df = pd.read_csv('sabrine/logicimmo.csv')
+    df = pd.read_csv('projet/scraping/logicimmo.csv')
     df = df[['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Code Postal',
              'Classe Energetique', 'Etage', 'Terrasse', 'Parking', 'Ascenseur', 'Box',
              'Prix (Euros)']]
@@ -34,17 +33,13 @@ def predict_price(area, surface, rooms, bedrooms, energy, parking, box, elevator
 
     y_pred = model_lin_reg.predict(X_test)
     print(y_pred)
-    return y_pred
+    return round(y_pred[0])
 
-@app.route('/', methods=('GET', 'POST'))
+@app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/about.html')
-def about():
-    return render_template('about.html')
-
-@app.route('/predicted.html', methods=['GET', 'POST'])
+@app.route('/predicted.html', methods=['POST'])
 def predicted():
     if request.method == 'POST':
         area = [int(request.form.get('area'))]
@@ -80,3 +75,7 @@ def predicted():
 
         prediction = predict_price(area, surface, rooms, bedrooms, energy, parking, box, elevator, floor, balcony)
     return render_template('predicted.html', prediction=prediction)
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')

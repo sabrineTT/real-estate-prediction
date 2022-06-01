@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-<label for="">Selectionnez la classe énergétique</label>
 
 {% block title %} Predict'House {% endblock %}
 {% block content %}
     <div class="top">
+        <!--img class="logo" src="../static/css/images/logo-bleu.png" alt="Predict'House logo"-->
         <h1 id="title" class="hidden">Estimez votre bien à sa juste valeur !</h1>
+        <h3 id="slogan"> Achetez et vendez au meilleur prix </h3>
     </div>
     <div class="formulaire animated fadeInUp">
         <form id="search-form" name="gs" method="POST" role="search" action="{{ url_for('predicted')}}">

@@ -3,9 +3,9 @@
 {% block title %} Welcome to Predict {% endblock %}
 {% block content %}
     <div class="formulaire">
-        {% for price in prediction %}
-            <h1 id="title">{{ price }}</h1>
-        {% endfor %}
+        <h1 id="slogan" style="padding-top: 50px"> L'estimation de votre bien est de </h1>
+        <h1 id="title" style="padding-top: 0px"> {{ prediction }}€</h1>
+        <img class="logo" src="../static/css/images/logo-bleu.png" alt="Predict'House logo">
     </div>
 {% endblock %}
 

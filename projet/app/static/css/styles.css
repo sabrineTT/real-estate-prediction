@@ -45,20 +45,9 @@ Navbar Css
     height: 900%;
 }
 
-.background-image-paris::before{
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-
-    background: url("images/paris.jpg") no-repeat;
-    background-size: cover;
-    opacity: 0.2;
-}
-
 body {
+    background: url("images/paris.png") no-repeat center center fixed;
+    background-size: cover;
     font-size: 16px;
     font-family: 'Lato', sans-serif;
     font-weight: 300;
@@ -83,6 +72,20 @@ h1#title {
 
 h1#title span span {
     font-weight: 400;
+}
+
+h3#slogan {
+    font-family: 'Blinker', cursive;
+    font-weight: 250;
+    font-size: 2.5em;
+    font-style: italic;
+    color: #0466c8;
+    text-shadow: 0 0 10px white;
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    top: 0px;
 }
 
 a {
