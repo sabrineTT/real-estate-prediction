@@ -6,7 +6,7 @@ import time
 
 
 options = Options()
-options.headless = True  #etre prive
+options.headless = True 
 options.add_argument("--window-size=1920,1080")  #dimension fenetre
 options.add_argument("start-maximized")  #mise en plein ecran de la fenetre
 
@@ -68,9 +68,7 @@ def scrapping (debut, fin, page) :
         url = 'https://www.logic-immo.com/vente-immobilier-paris-75,100_1/options/groupprptypesids=1/page=%d'%(page)  # adresse de la page scrappee
         driver.get(url)  # ouverture avec driver
 
-        pb = [9,11,12,19,29,39,49] #pages avec test anti-robot
-
-        if page == debut or page in pb or page % 10 == 0 or page == debut+1 :
+        if page == debut or page % 10 == 0 or page == debut+1 :
             time.sleep(8)  #pause
         else:
             time.sleep(2)
@@ -244,12 +242,6 @@ def clean_data(infos_list):
         
         if estate_type == "'" :
             estate_type = -1
-        elif estate_type == 9 :
-            estate_type = 3
-        
-        #appartement / studios : 1
-        #maison / villa : 2
-        #loft : 3
         
         nb_bedrooms_list.append(nb_bedrooms) #ajout des donnees nettoyees et completes aux listes correspondantes
         nb_rooms_list.append(nb_rooms)
