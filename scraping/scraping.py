@@ -10,7 +10,7 @@ options.headless = True
 options.add_argument("--window-size=1920,1080")  #dimension fenetre
 options.add_argument("start-maximized")  #mise en plein ecran de la fenetre
 
-driver = webdriver.Chrome("scraping/chromedriver")  # adresse driver chrome
+driver = webdriver.Chrome("../scraping/chromedriver")  # adresse driver chrome
 
 # =============================================================================
 # Variables a definir :
@@ -276,7 +276,7 @@ def main ():
     
     df = pd.DataFrame(list(zip(space_list, nb_rooms_list, nb_bedrooms_list, price_list, estate_postalcode_list, energy_letter_list, photos_nb_list, floor_nb_list,estate_type_list, client_type_list, terrasse_list, parking_list, cave_list, ascenseur_list, gardien_list, renove_list, box_list)),columns=['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Prix (Euros)', 'Code Postal', 'Classe Energetique', 'Nombre Photos', 'Etage', 'Type de Bien', 'Type Vendeur', 'Terrasse', 'Parking', 'Cave', 'Ascenseur', 'Gardien', 'Renove', 'Box'])  #creation d'une base de donnees
     print(df)  #affichage de la base
-    df.to_csv(r'projet/logicimmo.csv',index=False)  #converti base pandas en fichier csv
+    df.to_csv(r'../scraping/logicimmo.csv',index=False)  #converti base pandas en fichier csv
 
 
 main()

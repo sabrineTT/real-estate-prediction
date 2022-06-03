@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 app = Flask(__name__)
 
 def predict_price(area, surface, rooms, bedrooms, energy, parking, box, elevator, floor, balcony):
-    df = pd.read_csv('scraping/logicimmo.csv')
+    df = pd.read_csv('scraping/logicimmo_clean.csv')
     df = df[['Superficie (m2)', 'Nombre Pieces', 'Nombre Chambres', 'Code Postal',
              'Classe Energetique', 'Etage', 'Terrasse', 'Parking', 'Ascenseur', 'Box',
              'Prix (Euros)']]
